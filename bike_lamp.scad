@@ -15,7 +15,7 @@ module main_body(){
    cube([lamp_x,lamp_y,lamp_z]);}
 module cube_inside(x,y,z,inside_x,inside_y,inside_z){
    lamp_pos_x = (x-inside_x)/2;
-   lamp_pos_y = (y-inside_y)/2;
+   lamp_pos_y = (y-inside_y);
    lamp_pos_z = (z-inside_z)/2;
    
    translate([lamp_pos_x,lamp_pos_y,lamp_pos_z]){
