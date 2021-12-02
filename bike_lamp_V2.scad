@@ -35,8 +35,8 @@ module bracket(){
    }
 
 module wire_hole(){
-    wire_hole_radius = 1;
-    translate([(lamp_x)/4,(lamp_y-lamp_inside_y),(lamp_y/2)+(wire_hole_radius*2)]){
+    wire_hole_radius = 4;
+    translate([(lamp_x)/4,(lamp_y-lamp_inside_y),(lamp_y/2)+(wire_hole_radius/2)]){
         rotate([90,0,0]){
             cylinder(h=(lamp_y-lamp_inside_y), r=wire_hole_radius, $fn=50);
         }
