@@ -1,10 +1,12 @@
-lamp_x = (lamp_inside_x + 5);
-lamp_y = (lamp_inside_x + 5);
-lamp_z = (lamp_inside_x + 5);
-
 lamp_inside_x = 45;
 lamp_inside_y = 10;
 lamp_inside_z = 16;
+
+lamp_x = (lamp_inside_x + 5);
+lamp_y = (lamp_inside_y + 5);
+lamp_z = (lamp_inside_z + 5);
+
+
 
 bracket_x = 8;
 bracket_y = 5;
