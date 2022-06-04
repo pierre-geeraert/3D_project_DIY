@@ -16,16 +16,16 @@ main_body_tube_diameter = 22;
 
 tube_bit_height = 60;
 tube_bit_diameter = 30.4;
-tube_bit_hole_diameter = 17;
+tube_bit_hole_diameter = 18;
 
 //bearing
 
-bearing_diameter = 40;
-bearing_height = 12;
+bearing_diameter = 41;
+bearing_height = 13;
 
 //nut
-nut_height = 8.3;
-nut_width = 16;
+nut_height = 8.5;
+nut_width = 16.5;
 
 
  
@@ -53,7 +53,7 @@ module bearing(){
     cylinder(h=bearing_height, r=(bearing_diameter)/2, $fn=50);
 }
 module nut(){
-    cylinder(h=nut_height, r=nut_width/2, $fn=6);
+    cylinder(h=bearing_diameter+(nut_height*2), r=nut_width/2, $fn=6);
     }
 
 module holes_for_threaded_shaft(){
@@ -61,38 +61,39 @@ module holes_for_threaded_shaft(){
         rotate ([90,0,0])
             cylinder(h=main_body_width, r=(threaded_shaft_diameter)/2, $fn=50);
     }
-    translate([main_body_distance_between_two_main_bodies,0,main_body_height/2]){
+    translate([(main_body_height/2)+main_body_distance_between_two_main_bodies,0,main_body_height/2]){
         rotate ([90,0,0])
             cylinder(h=main_body_width, r=(threaded_shaft_diameter)/2, $fn=50);
     }
 }
 
+module nut_negative(x_offset,y_offset,z_offset){
+    translate([main_body_height/2+x_offset,0+y_offset,(main_body_height/2)+z_offset]){
+        rotate ([90,0,0])
+            nut();
+    }
+}
 module main_body(){
-    difference(){//difference for adding the holes for the threaded shafts
-    difference(){//difference to insert tube bit hole inside
-        difference(){ // difference to put the bearing on
-            union(){
-                hull(){ // hull to join the 2 tubes
-                    main_body_tube();
-                    translate([main_body_distance_between_two_main_bodies,0,0]){//move the tube 
-                        main_body_tube();
-                    }
+    difference(){
+        union(){
+        hull(){ // hull to join the 2 tubes
+            main_body_tube();
+            translate([main_body_distance_between_two_main_bodies,0,0]){//move the tube
+                main_body_tube();}
+            }
+        translate([main_body_depth/2,-main_body_width/2,main_body_height]){
+                tube_bit();}    
                 }
-                translate([main_body_depth/2,-main_body_width/2,main_body_height]){
-                tube_bit();}
-            }
-
-            translate([main_body_depth/2,-main_body_width/2,0]){
-
-                bearing();
-            }
-        }
-        translate([main_body_depth/2,-main_body_width/2,bearing_height])
+        
+     holes_for_threaded_shaft();            
+     translate([main_body_depth/2,-main_body_width/2,0]){bearing();}
+     translate([main_body_depth/2,-main_body_width/2,bearing_height]){
         tube_bit_hole_inside();
         }
- holes_for_threaded_shaft();
-        }
+color ("red") {nut_negative(0,-((main_body_width/2)-(bearing_diameter/2)-nut_height),0);}                   
+color ("red") {nut_negative(main_body_distance_between_two_main_bodies,-((main_body_width/2)-(bearing_diameter/2)-nut_height),0);}                   
+
+}
 }
 
-//holes_for_threaded_shaft();
 main_body();
