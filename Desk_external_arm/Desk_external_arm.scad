@@ -8,6 +8,7 @@
 main_body_height = 22;
 main_body_width = 120;
 main_body_depth = 51;
+main_body_distance_between_two_main_bodies = 29; 
 
 //main body tube
 main_body_tube_diameter = 22;
@@ -55,14 +56,25 @@ module nut(){
     cylinder(h=nut_height, r=nut_width/2, $fn=6);
     }
 
+module holes_for_threaded_shaft(){
+     translate([main_body_height/2,0,main_body_height/2]){
+        rotate ([90,0,0])
+            cylinder(h=main_body_width, r=(threaded_shaft_diameter)/2, $fn=50);
+    }
+    translate([main_body_distance_between_two_main_bodies,0,main_body_height/2]){
+        rotate ([90,0,0])
+            cylinder(h=main_body_width, r=(threaded_shaft_diameter)/2, $fn=50);
+    }
+}
 
 module main_body(){
+    difference(){//difference for adding the holes for the threaded shafts
     difference(){//difference to insert tube bit hole inside
         difference(){ // difference to put the bearing on
             union(){
                 hull(){ // hull to join the 2 tubes
                     main_body_tube();
-                    translate([29,0,0]){//move the tube 
+                    translate([main_body_distance_between_two_main_bodies,0,0]){//move the tube 
                         main_body_tube();
                     }
                 }
@@ -78,6 +90,9 @@ module main_body(){
         translate([main_body_depth/2,-main_body_width/2,bearing_height])
         tube_bit_hole_inside();
         }
+ holes_for_threaded_shaft();
+        }
 }
 
+//holes_for_threaded_shaft();
 main_body();
