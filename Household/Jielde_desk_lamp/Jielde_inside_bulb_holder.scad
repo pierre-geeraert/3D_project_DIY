@@ -1,6 +1,6 @@
 include <../references.scad>
 
-Tube_length = 15;
+Tube_length = 5; //15
 Tube_diameter = 27.3;
 Hole_diameter = 5;
 
@@ -39,12 +39,12 @@ difference(){
     rotate([0,0,110.78]){
         color("red"){
             hull(){
-                holes(11,0,Tube_length-(Tube_length*(33/100)),33);
-                holes(13,0,Tube_length-(Tube_length*(33/100)),33);
+                holes(11,0,0,100);
+                holes(13,0,0,100);
                 }
             hull(){
-                holes(-11,0,Tube_length-(Tube_length*(33/100)),33);
-                holes(-13,0,Tube_length-(Tube_length*(33/100)),33);
+                holes(-11,0,0,100);
+                holes(-13,0,0,100);
                 }
         }
     }
