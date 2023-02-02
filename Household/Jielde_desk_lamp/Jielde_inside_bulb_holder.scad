@@ -28,15 +28,27 @@ module holes(position_x,position_y,position_z,percentage_of_length){
     }
 }
 
+module switch_square(){
+    translate([-SW_length_PT/2,-SW_width_PT/2,0]){
+        color("purple")cube([SW_length_PT,SW_width_PT,SW_height_PT]);
+    }}
 
-
-
+module holes_for_cables(position_x,position_y,position_z){
+    translate([position_x,position_y,position_z]){
+        rotate([0,-90,0]){
+            color("brown")cylinder(h=Tube_diameter, d=Hole_diameter , $fn=100);
+        }
+    }
+}
 
 difference(){
     support();
     holes(9,0,0,100);
     holes(-9,0,0,100);
+    switch_square();
+
     rotate([0,0,110.78]){
+//    holes_for_cables(14,0,Tube_length/2);
         color("red"){
             hull(){
                 holes(11,0,Tube_length-(Tube_length*(33/100)),33);
@@ -48,6 +60,20 @@ difference(){
                 }
         }
     }
+    rotate([0,0,-110.78]){
+        color("pink"){
+            hull(){
+                holes(6,0,Tube_length-(Tube_length*(33/100)),33);
+                holes(13,0,Tube_length-(Tube_length*(33/100)),33);
+                }
+            hull(){
+                holes(-6,0,Tube_length-(Tube_length*(33/100)),33);
+                holes(-13,0,Tube_length-(Tube_length*(33/100)),33);
+                }
+        }
+    }
+
+
 }
 
 //was :                 holes(11,0,Tube_length-(Tube_length*(33/100)),33);
