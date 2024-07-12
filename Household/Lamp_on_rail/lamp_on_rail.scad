@@ -32,8 +32,8 @@ bearing_height = 13;
 
 //screw
 screw_length=100;
-screw_diameter=4;
-screw_cap_diameter=10;
+screw_diameter=7;
+screw_cap_diameter=11;
 screw_cap_length=5;
 
 
@@ -61,10 +61,12 @@ module tube_bit_hole_inside(){
     cylinder(h=tube_bit_height+(main_body_height-bearing_height), r=(tube_bit_hole_diameter)/2, $fn=50);
 }
     
-module screw(rotate_x,rotate_y,rotate_z){   
-    rotate([rotate_x,rotate_y,rotate_z]){
-        cylinder(h=screw_length,d=screw_diameter,$fn=50);
-        cylinder(h=screw_cap_length,d=screw_cap_diameter,$fn=50);
+module screw(position_x,position_y,position_z){   
+    translate([position_x,position_y,position_z]){
+        rotate([-90,0,0]){
+            cylinder(h=screw_length,d=screw_diameter,$fn=50);
+            cylinder(h=screw_cap_length,d=screw_cap_diameter,$fn=50);
+        }
         }
     
     }
@@ -91,10 +93,16 @@ module main_body(){
         space_for_head_screw(12.75,52.60);
         space_for_head_screw(52.75,12.90);
         space_for_head_screw(52.75,52.60);
-        
+
+        color("red"){screw(42.75,-(tube_bit_diameter),32.75);}
+        color("blue"){screw(22.75,-(tube_bit_diameter),32.75);}
+        color("green"){screw(32.75,-60,52.60);}
+        color("pink"){screw(32.75,-60,22.75);}
+        color("black"){screw(12.75,-(tube_bit_diameter)+5,32.75);}
+        color("yellow"){screw(52.75,-(tube_bit_diameter)+5,32.75);}
 
     }
 }
 //space_for_head_screw(1,1);
     main_body();
-//color("red"){screw();}
+
