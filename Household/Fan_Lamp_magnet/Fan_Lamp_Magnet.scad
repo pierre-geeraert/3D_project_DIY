@@ -86,8 +86,8 @@ module main_object(){
             color("blue"){    resize([square_base_inside_length,square_base_inside_width,square_base_inside_height]){square_base();}}
 
         }
-    color("red"){custom_cylinder_switch(square_base_inside_length/2,-square_base_inside_length/2+square_base_inside_length*(2/3),square_base_inside_height/2);}
-    color("red"){custom_cylinder_switch(square_base_inside_length/2,-square_base_inside_length/2+square_base_inside_length*(1/3),square_base_inside_height/2);}
+    color("red"){custom_cylinder_switch(-square_base_inside_length/2+square_base_inside_length*(2/3),-square_base_inside_width/2,square_base_inside_height/2);}
+    color("red"){custom_cylinder_switch(-square_base_inside_length/2+square_base_inside_length*(1/3),-square_base_inside_width/2,square_base_inside_height/2);}
     
         
     }
@@ -96,8 +96,8 @@ module main_object(){
 
 module custom_cylinder_switch(translated_position_X, translated_position_Y,translated_position_Z) {
     translate([translated_position_X, translated_position_Y, translated_position_Z]){ 
-        rotate([0,90,0]){
-            cylinder(d=7, h=square_base_wall_thickness, $fn=30);
+        rotate([90,0,0]){
+            cylinder(d=7, h=square_base_wall_thickness+10, $fn=30);
         }
     }
 }
@@ -116,9 +116,9 @@ module main_body(){
     main_object();
     
 //    square_inside_magnet();
-        battery_holder(-square_base_inside_length/2,square_base_inside_width/2-(battery_holder_width),square_base_wall_thickness);
-        battery_holder(-square_base_inside_length/2,square_base_inside_width/2-(battery_holder_width*2),square_base_wall_thickness);
-        battery_holder(-square_base_inside_length/2,square_base_inside_width/2-(battery_holder_width*3),square_base_wall_thickness);
+        battery_holder(-battery_holder_length/2,square_base_inside_width/2-(battery_holder_width),square_base_wall_thickness);
+        battery_holder(-battery_holder_length/2,square_base_inside_width/2-(battery_holder_width*2),square_base_wall_thickness);
+        battery_holder(-battery_holder_length/2,square_base_inside_width/2-(battery_holder_width*3),square_base_wall_thickness);
 
 
 
