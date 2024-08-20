@@ -20,57 +20,77 @@ battery_holder_length = 81.4;
 battery_holder_width = 23;
 battery_holder_height = 20;
 
-//main body (looking from front)
+//main body (looking from top)
 
 main_body_height = 3;
 main_body_width = external_dimension_magnet_width+4*battery_holder_width;
 main_body_length = 90;
 
-//main body tube
-main_body_tube_diameter = 22;
+//square_base
+
+square_base_length = main_body_width;
+square_base_width = main_body_width;
+square_base_height = 30;
+square_base_wall_thickness = 4; 
+
+//square_base_inside
+
+square_base_inside_length = square_base_length-(square_base_wall_thickness*2);
+square_base_inside_width = square_base_width-(square_base_wall_thickness*2);
+square_base_inside_height = square_base_height-(square_base_wall_thickness);
 
 //connection_plate
 connection_plate_length=65.50;
 connection_plate_width=65.50;
 connection_plate_depth=5;
 
-//Tube bit
-
-tube_bit_height = connection_plate_width;
-tube_bit_diameter = 50;
-tube_bit_hole_diameter = 18;
 
 
-//bearing
-
-bearing_diameter = 41;
-bearing_height = 13;
-
-//screw
-screw_length=100;
-screw_diameter=7;
-screw_cap_diameter=11;
-screw_cap_length=5;
 
 
-//space_for_head_screw
-space_for_head_screw_diameter=10;
-space_for_head_screw_length=5;
-
-
-module connection_plate(){
-    rotate([90,0,0]){
-        cube([connection_plate_length, connection_plate_width, connection_plate_depth]);}
+module corner_cut(translate_x,translate_y,translate_z){
+    translate([translate_x,translate_y,translate_z]){
+        color("green"){
+            rotate([0,0,45]){
+                translate([-5,-5,0]){
+                    cube([10,10,square_base_height]);
+                }
+            }
+            }
+        }
     }
+    
 
-module tube_bit(){
-            cylinder(h=tube_bit_height, r=(tube_bit_diameter)/2, $fn=50);
+module square_base(){
+    difference(){
+         translate([-square_base_length/2,-square_base_width/2,0]){
+            
+                cube([square_base_length, square_base_width, square_base_height]);
+                
+        }
+    corner_cut(square_base_length/2,square_base_length/2,0);
+    corner_cut(-square_base_length/2,square_base_length/2,0);
+    corner_cut(square_base_length/2,-square_base_length/2,0);
+    corner_cut(-square_base_length/2,-square_base_length/2,0);
+    }
 }
-module main_plate(){
-    translate([-main_body_length/2,-main_body_width/2,0]){
-        cube([main_body_length,main_body_width,main_body_height]);
+    
+    
+
+
+
+module main_object(){
+    difference(){
+        square_base();
+        translate([0,0,square_base_wall_thickness]){
+
+            color("blue"){    resize([square_base_inside_length,square_base_inside_width,square_base_inside_height]){square_base();}}
+
+        }
+        
     }
-    }
+    
+}
 
 module battery_holder(translate_x,translate_y,translate_z){
     translate([translate_x,translate_y,translate_z]){
@@ -83,41 +103,17 @@ module square_inside_magnet(){
     }
     }
 module main_body(){
-    main_plate();
-    square_inside_magnet();
-    battery_holder(-battery_holder_length/2,external_dimension_magnet_width/2,main_body_height);
-    battery_holder(-battery_holder_length/2,external_dimension_magnet_width/2+battery_holder_width,main_body_height);
-    battery_holder(-battery_holder_length/2,-main_body_width/2+battery_holder_width,main_body_height);
+    main_object();
+    
+//    square_inside_magnet();
+        battery_holder(-square_base_inside_length/2,square_base_inside_width/2-(battery_holder_width),square_base_wall_thickness);
+        battery_holder(-square_base_inside_length/2,square_base_inside_width/2-(battery_holder_width*2),square_base_wall_thickness);
+        battery_holder(-square_base_inside_length/2,square_base_inside_width/2-(battery_holder_width*3),square_base_wall_thickness);
 
-    }
-module old_main_body(){
-    difference(){
 
-        hull(){ // hull to join the 2 tubes
-            color("green"){connection_plate();}
-            translate([connection_plate_width/2,-(tube_bit_diameter/2),0]){
-                tube_bit();}    
-        }
-        
-        translate([connection_plate_width/2,-(tube_bit_diameter/2),0]){bearing();}
-        
-        translate([connection_plate_width/2,-(tube_bit_diameter/2),0]){tube_bit_hole_inside();}
-
-        space_for_head_screw(12.75,12.90);
-        space_for_head_screw(12.75,52.60);
-        space_for_head_screw(52.75,12.90);
-        space_for_head_screw(52.75,52.60);
-
-        color("red"){screw(42.75,-(tube_bit_diameter),32.75);}
-        color("blue"){screw(22.75,-(tube_bit_diameter),32.75);}
-        color("green"){screw(32.75,-60,52.60);}
-        color("pink"){screw(32.75,-60,22.75);}
-        color("black"){screw(12.75,-(tube_bit_diameter)+5,32.75);}
-        color("yellow"){screw(52.75,-(tube_bit_diameter)+5,32.75);}
-
-    }
 }
-//space_for_head_screw(1,1);
-    main_body();
 
- //color("yellow"){screw(52.75,-(tube_bit_diameter)+5,32.75);}
+
+
+main_body();
+
