@@ -39,12 +39,11 @@ square_base_inside_length = square_base_length-(square_base_wall_thickness*2);
 square_base_inside_width = square_base_width-(square_base_wall_thickness*2);
 square_base_inside_height = square_base_height-(square_base_wall_thickness);
 
-//connection_plate
-connection_plate_length=65.50;
-connection_plate_width=65.50;
-connection_plate_depth=5;
-
-
+//magnet 
+magnet_holder_length = 36; 
+magnet_holder_width = 19;
+magnet_holder_height = 10;
+magnet_height = 6;
 
 
 
@@ -73,23 +72,48 @@ module square_base(){
     corner_cut(square_base_length/2,-square_base_length/2,0);
     corner_cut(-square_base_length/2,-square_base_length/2,0);
     }
+
+    
 }
+module hole_for_magnets(translated_position_X, translated_position_Y,translated_position_Z){
+    translate([translated_position_X, translated_position_Y, translated_position_Z]){ 
+        rotate([0,0,0]){
+            color("pink"){cylinder(d=15, h=magnet_holder_height, $fn=30);}
+        }
+    }
     
-    
+    }
 
 
+
+module magnet_holder(){
+    difference(){
+        translate([-magnet_holder_length/2,square_base_inside_width/2-(battery_holder_width*4),square_base_wall_thickness]){
+                
+                    color("green"){cube([magnet_holder_length, magnet_holder_width, magnet_holder_height]);}
+                    
+            }
+                    hole_for_magnets(magnet_holder_length/4,(square_base_inside_width/2-(battery_holder_width*4))+magnet_holder_width/2,square_base_wall_thickness);
+        hole_for_magnets(-magnet_holder_length/4,(square_base_inside_width/2-(battery_holder_width*4))+magnet_holder_width/2,square_base_wall_thickness);
+        }
+    }
 
 module main_object(){
     difference(){
         square_base();
         translate([0,0,square_base_wall_thickness]){
             color("blue"){    resize([square_base_inside_length,square_base_inside_width,square_base_inside_height]){square_base();}}
+            
+                
 
         }
     color("red"){custom_cylinder_switch(-square_base_inside_length/2+square_base_inside_length*(2/3),-square_base_inside_width/2,square_base_inside_height/2);}
     color("red"){custom_cylinder_switch(-square_base_inside_length/2+square_base_inside_length*(1/3),-square_base_inside_width/2,square_base_inside_height/2);}
     
-        
+        hole_for_magnets(magnet_holder_length/4,(square_base_inside_width/2-(battery_holder_width*4))+magnet_holder_width/2,square_base_wall_thickness/2);
+    hole_for_magnets(-magnet_holder_length/4,(square_base_inside_width/2-(battery_holder_width*4))+magnet_holder_width/2,square_base_wall_thickness/2);
+    
+    
     }
     
 }
@@ -114,6 +138,9 @@ module square_inside_magnet(){
     }
 module main_body(){
     main_object();
+    magnet_holder();
+    
+
     
 //    square_inside_magnet();
         battery_holder(-battery_holder_length/2,square_base_inside_width/2-(battery_holder_width),square_base_wall_thickness);
