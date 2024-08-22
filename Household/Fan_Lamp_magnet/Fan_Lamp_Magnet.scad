@@ -23,15 +23,15 @@ battery_holder_height = 20;
 //main body (looking from top)
 
 main_body_height = 3;
-main_body_width = external_dimension_magnet_width+4*battery_holder_width;
+main_body_width = external_dimension_magnet_width+3*battery_holder_width;
 main_body_length = 90;
 
 //square_base
 
 square_base_length = main_body_width;
 square_base_width = main_body_width;
-square_base_height = 30;
-square_base_wall_thickness = 4; 
+square_base_height = 25;
+square_base_wall_thickness = 2; 
 
 //square_base_inside
 
@@ -110,7 +110,7 @@ module main_object(){
     color("red"){custom_cylinder_switch(-square_base_inside_length/2+square_base_inside_length*(2/3),-square_base_inside_width/2,square_base_inside_height/2);}
     color("red"){custom_cylinder_switch(-square_base_inside_length/2+square_base_inside_length*(1/3),-square_base_inside_width/2,square_base_inside_height/2);}
     
-        hole_for_magnets(magnet_holder_length/4,(square_base_inside_width/2-(battery_holder_width*4))+magnet_holder_width/2,square_base_wall_thickness/2);
+    hole_for_magnets(magnet_holder_length/4,(square_base_inside_width/2-(battery_holder_width*4))+magnet_holder_width/2,square_base_wall_thickness/2);
     hole_for_magnets(-magnet_holder_length/4,(square_base_inside_width/2-(battery_holder_width*4))+magnet_holder_width/2,square_base_wall_thickness/2);
     
     
@@ -138,14 +138,14 @@ module square_inside_magnet(){
     }
 module main_body(){
     main_object();
-    magnet_holder();
+    //magnet_holder();
     
 
     
 //    square_inside_magnet();
-        battery_holder(-battery_holder_length/2,square_base_inside_width/2-(battery_holder_width),square_base_wall_thickness);
-        battery_holder(-battery_holder_length/2,square_base_inside_width/2-(battery_holder_width*2),square_base_wall_thickness);
-        battery_holder(-battery_holder_length/2,square_base_inside_width/2-(battery_holder_width*3),square_base_wall_thickness);
+        battery_holder(-battery_holder_length/2,square_base_inside_width/2-(battery_holder_width),square_base_wall_thickness-3);
+        battery_holder(-battery_holder_length/2,square_base_inside_width/2-(battery_holder_width*2),square_base_wall_thickness-3);
+        battery_holder(-battery_holder_length/2,square_base_inside_width/2-(battery_holder_width*3),square_base_wall_thickness-3);
 
 
 
