@@ -22,6 +22,14 @@ TR_M10_Diamater_IS = 10;
 TR_M10_Diamater_PT = 12;
 
 //--------------Screw (SC)
+//----M3
+
+SC_M3_Diameter_ES = 2.96;
+SC_M3_Head_Diameter_ES = 5.90;
+SC_M3_Head_Height_ES = 2.32;
+//for a hole 
+SC_M3_Diameter_PT = 4; 
+
 
 //----M5
 
@@ -31,6 +39,10 @@ SC_M5_Head_Height_ES = 3.0;
 //for a hole 
 SC_M5_Diamater_IS = 5;
 SC_M5_Diamater_PT = 0; //inconnu pour le moment
+
+
+//--------------Nut Bolt (NB)
+
 
 
 //--------------Zip ties (ZT)
@@ -55,5 +67,17 @@ SW_length_PT = 15;
 SW_width_PT = 10;
 SW_height_PT = 16;
 
+
+//switch from aliexpress
+SW_AL_tube_width_ES = 5.7;
+SW_AL_tube_width_PT = 7;
+
+module custom_cylinder_switch(translated_position_X, translated_position_Y,translated_position_Z,heigh_input) {
+    translate([translated_position_X, translated_position_Y, translated_position_Z]){ 
+        rotate([90,0,0]){
+            cylinder(d=SW_AL_tube_width_PT, h=heigh_input, $fn=30);
+        }
+    }
+}
 
 //https://d138zd1ktt9iqe.cloudfront.net/media/seo_landing_files/length-width-height-01-1646654708.png

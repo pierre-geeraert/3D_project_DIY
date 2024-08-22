@@ -1,4 +1,5 @@
 //measurements
+include <../references.scad>
 
 //https://www.lofty.com/pages/how-to-measure-three-dimensional-objects-including-silver-ceramics-glass-sculpture
 
@@ -107,8 +108,8 @@ module main_object(){
                 
 
         }
-    color("red"){custom_cylinder_switch(-square_base_inside_length/2+square_base_inside_length*(2/3),-square_base_inside_width/2,square_base_inside_height/2);}
-    color("red"){custom_cylinder_switch(-square_base_inside_length/2+square_base_inside_length*(1/3),-square_base_inside_width/2,square_base_inside_height/2);}
+    color("red"){custom_cylinder_switch(-square_base_inside_length/2+square_base_inside_length*(2/3),-square_base_inside_width/2,square_base_inside_height/2,square_base_wall_thickness+10);}
+    color("red"){custom_cylinder_switch(-square_base_inside_length/2+square_base_inside_length*(1/3),-square_base_inside_width/2,square_base_inside_height/2,square_base_wall_thickness+10);}
     
     hole_for_magnets(magnet_holder_length/4,(square_base_inside_width/2-(battery_holder_width*4))+magnet_holder_width/2,square_base_wall_thickness/2);
     hole_for_magnets(-magnet_holder_length/4,(square_base_inside_width/2-(battery_holder_width*4))+magnet_holder_width/2,square_base_wall_thickness/2);
@@ -118,13 +119,6 @@ module main_object(){
     
 }
 
-module custom_cylinder_switch(translated_position_X, translated_position_Y,translated_position_Z) {
-    translate([translated_position_X, translated_position_Y, translated_position_Z]){ 
-        rotate([90,0,0]){
-            cylinder(d=7, h=square_base_wall_thickness+10, $fn=30);
-        }
-    }
-}
 
 module battery_holder(translate_x,translate_y,translate_z){
     translate([translate_x,translate_y,translate_z]){
@@ -143,7 +137,7 @@ module main_body(){
 
     
 //    square_inside_magnet();
-        battery_holder(-battery_holder_length/2,square_base_inside_width/2-(battery_holder_width),square_base_wall_thickness-3);
+        battery_holder(-battery_holder_length/2,square_base_inside_width/2-(battery_holder_width),square_base_wall_thickness-2);
         battery_holder(-battery_holder_length/2,square_base_inside_width/2-(battery_holder_width*2),square_base_wall_thickness-3);
         battery_holder(-battery_holder_length/2,square_base_inside_width/2-(battery_holder_width*3),square_base_wall_thickness-3);
 
