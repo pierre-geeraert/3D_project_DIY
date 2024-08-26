@@ -115,6 +115,19 @@ module main_object(){
     hole_for_magnets(-magnet_holder_length/4,(square_base_inside_width/2-(battery_holder_width*4))+magnet_holder_width/2,square_base_wall_thickness/2);
     
     
+        translate([square_base_inside_width/2-(NB_M3_Diameter_C2C_PT/2),square_base_inside_length/2-(NB_M3_Diameter_C2C_PT),0]){
+        nut_M3(10);
+        }
+    translate([-((square_base_inside_width/2)-(NB_M3_Diameter_C2C_PT/2)),square_base_inside_length/2-(NB_M3_Diameter_C2C_PT),0]){
+        nut_M3(10);
+        }
+    translate([square_base_inside_width/2-(NB_M3_Diameter_C2C_PT/2),-(square_base_inside_length/2-(NB_M3_Diameter_C2C_PT)),0]){
+        nut_M3(10);
+        }
+    translate([-(square_base_inside_width/2-(NB_M3_Diameter_C2C_PT/2)),-(square_base_inside_length/2-(NB_M3_Diameter_C2C_PT)),0]){
+        nut_M3(10);
+        }
+    
     }
     
 }
@@ -130,16 +143,28 @@ module square_inside_magnet(){
         color("green"){cube([hole_inside_magnet_height,hole_inside_magnet_width,hole_inside_magnet_depth]);}
     }
     }
-module main_body(){
-    main_object();
-    //magnet_holder();
     
+//holes if you want to make an open wall
+module hexagon_Y(y_input,z_input){
+    for (i = [-main_body_width/2:12: main_body_width/2]){
+        translate([i,y_input,z_input]){
+            rotate([90,0,0]){
+                color("purple"){cylinder(r=5,h=square_base_wall_thickness,$fn=6);}
+            }
+        }
+    }
+}
 
-    
-//    square_inside_magnet();
+module main_body(){
+        main_object();
+
+
+    //magnet_holder();
+ 
+ //    square_inside_magnet();
         battery_holder(-battery_holder_length/2,square_base_inside_width/2-(battery_holder_width),square_base_wall_thickness-2);
-        battery_holder(-battery_holder_length/2,square_base_inside_width/2-(battery_holder_width*2),square_base_wall_thickness-3);
-        battery_holder(-battery_holder_length/2,square_base_inside_width/2-(battery_holder_width*3),square_base_wall_thickness-3);
+        battery_holder(-battery_holder_length/2,square_base_inside_width/2-(battery_holder_width*2),square_base_wall_thickness-2);
+        battery_holder(-battery_holder_length/2,square_base_inside_width/2-(battery_holder_width*3),square_base_wall_thickness-2);
 
 
 
