@@ -43,6 +43,21 @@ SC_M5_Diamater_PT = 0; //inconnu pour le moment
 
 //--------------Nut Bolt (NB)
 
+module nut_M3(height_input){
+    cylinder(d=NB_M3_Diameter_C2C_PT,h=height_input,$fn=6);
+    
+    }
+
+//----M3
+// Side to side = from 2 paralelle faces S2S
+// corner to corner = from 2 corners C2C
+
+
+NB_M3_Diameter_S2S_ES = 5.30;
+NB_M3_Diameter_C2C_ES = 6.0;
+
+NB_M3_Diameter_S2S_PT = 7.30;
+NB_M3_Diameter_C2C_PT = 8.0;
 
 
 //--------------Zip ties (ZT)
