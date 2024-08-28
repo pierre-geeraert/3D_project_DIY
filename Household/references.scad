@@ -24,6 +24,11 @@ TR_M10_Diamater_PT = 12;
 //--------------Screw (SC)
 //----M3
 
+module body_M3(height_input){
+    cylinder(d=SC_M3_Diameter_PT,h=height_input,$fn=60);
+    
+    }
+    
 SC_M3_Diameter_ES = 2.96;
 SC_M3_Head_Diameter_ES = 5.90;
 SC_M3_Head_Height_ES = 2.32;
@@ -56,8 +61,8 @@ module nut_M3(height_input){
 NB_M3_Diameter_S2S_ES = 5.30;
 NB_M3_Diameter_C2C_ES = 6.0;
 
-NB_M3_Diameter_S2S_PT = 7.30;
-NB_M3_Diameter_C2C_PT = 8.0;
+NB_M3_Diameter_S2S_PT = 6.30; //reducing as well
+NB_M3_Diameter_C2C_PT = 7.0; //8.0 was too much 
 
 
 //--------------Zip ties (ZT)
