@@ -99,6 +99,14 @@ module main_object(){
         nut_M3(10);
         }
     
+            rotate_array_battery_charger=[90,0,0];
+    translate_array_battery_charger=[-(main_body_width/2)+4,BC_TP_height_from_bottom_ES,2];
+    scale([1.12,1.12,1.12]){
+    battery_charger(rotate_array_battery_charger,translate_array_battery_charger);
+    }
+    
+        
+        
     }
     
 }
@@ -130,12 +138,7 @@ module main_body(){
         main_object();
     
 battery_display();
-    rotate_array_battery_charger=[90,0,0];
-    translate_array_battery_charger=[-(main_body_width/2)+4,BC_TP_height_from_bottom_ES,2];
-    scale([1.12,1.12,1.12]){
-    battery_charger(rotate_array_battery_charger,translate_array_battery_charger);
-    }
-    
+
 
 }
 
