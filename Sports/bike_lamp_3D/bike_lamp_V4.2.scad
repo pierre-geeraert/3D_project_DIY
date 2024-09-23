@@ -36,20 +36,22 @@ radius_circles_corner_parametric = (width_parametric/4);
             }
         }
     }
+                rotate_array_battery_charger=[90,90,0];
+    translate_array_battery_charger=[0,0,height_object/2-1];
+    scale([1.12,1.12,1.12]){
+        battery_charger(rotate_array_battery_charger,translate_array_battery_charger);
+    }
+
 }
 
 difference() {
     hole_for_lamp(length_parametric=length_perimeter,width_parametric=width_perimeter,height_parametric=height_perimeter);
     hole_for_lamp(length_parametric=length_object,width_parametric=width_object,height_parametric=height_object);
 
-    translate([length_object,0,0]){
-       rotate([0,90,0]){
-           color("blue")cylinder(h=(length_perimeter-length_object), d=3 , $fn=100);
-           }
-       }
-    translate([length_object,-(width_perimeter)/2,-ZT_width_PT/2]){
+
+    translate([length_object,-(width_perimeter)/2,-VT_width_PT/2]){
        
-           color("red")cube([ZT_height_PT,width_perimeter,ZT_width_PT]);
+           color("red")cube([VT_height_PT,width_perimeter,VT_width_PT]);
            }
 }
-
+  

@@ -76,6 +76,18 @@ ZT_height_ES = 1;
 ZT_width_PT = 7;
 ZT_height_PT = 3;
 
+//--------------Velcro tape (VT)
+
+
+
+VT_length_ES = 300;
+VT_width_ES = 10;
+VT_height_ES = 1;
+
+VT_width_PT = 12;
+VT_height_PT = 3;
+
+
 
 //--------------Switch (SW)
 //switch from castorama 
