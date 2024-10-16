@@ -81,10 +81,10 @@ ZT_height_PT = 3;
 
 
 VT_length_ES = 300;
-VT_width_ES = 10;
+VT_width_ES = 20;
 VT_height_ES = 1;
 
-VT_width_PT = 12;
+VT_width_PT = 22;
 VT_height_PT = 3;
 
 
@@ -108,6 +108,13 @@ module custom_cylinder_switch(translated_position_X, translated_position_Y,trans
     translate([translated_position_X, translated_position_Y, translated_position_Z]){ 
         rotate([90,0,0]){
             cylinder(d=SW_AL_tube_width_PT, h=heigh_input, $fn=30);
+        }
+    }
+}
+module custom_cylinder(rotate_input,translate_input,diameter_object,height_object){
+    translate(translate_input){
+        rotate(rotate_input){
+            cylinder(d=diameter_object,h=height_object,$fn=60);
         }
     }
 }
