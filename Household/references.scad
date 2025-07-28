@@ -4,6 +4,13 @@
 // _ES = exact size
 // _IS = insertable with force but no gaps
 
+//--------------cables  (CB)
+
+//----Ethernet (rj45)
+
+//not mesured yet
+CB_RJ45_Diameter_ES=4; 
+
 //--------------threaded rod  (TR)
 
 //----M5
