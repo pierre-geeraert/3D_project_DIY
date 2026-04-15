@@ -35,6 +35,11 @@ module body_M3(height_input){
     cylinder(d=SC_M3_Diameter_PT,h=height_input,$fn=60);
     
     }
+
+module body_M5(height_input){
+    cylinder(d=SC_M5_Diameter_PT,h=height_input,$fn=60);
+    
+    }
     
 SC_M3_Diameter_ES = 2.96;
 SC_M3_Head_Diameter_ES = 5.90;
@@ -49,9 +54,9 @@ SC_M5_Diameter_ES = 4.86;
 SC_M5_Head_Diameter_ES = 9.24;
 SC_M5_Head_Height_ES = 3.0;
 //for a hole 
-SC_M5_Diamater_IS = 5;
-SC_M5_Diamater_PT = 0; //inconnu pour le moment
-
+SC_M5_Diameter_IS = 5;
+SC_M5_Diameter_PT = 5.2; //inconnu pour le moment
+SC_M5_Head_Diameter_PT = 11;
 
 //--------------Nut Bolt (NB)
 

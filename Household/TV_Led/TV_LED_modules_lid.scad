@@ -3,10 +3,9 @@ include <../../Household/references.scad>
 // Define variables for the dimensions and hole positions in millimeters
 
 //size LED string
-length_led_string = 100;
-width_led_string = 5;
-height_led_string = 2;
-
+length_led_string = 260;
+width_led_string = 16;
+height_led_string = 1;
 //structure
 wall_thickness = 2;
 gap_for_room = 2;
