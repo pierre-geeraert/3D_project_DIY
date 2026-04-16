@@ -65,5 +65,5 @@ module main(){
     }
     }
     
-    
+mirror()    
 main();

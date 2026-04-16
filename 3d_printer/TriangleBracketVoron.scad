@@ -48,7 +48,12 @@ module main(){
         color("red")
     custom_cylinder(rotate_input=rotate_array_holes_X_side,translate_input=translate_array_holes_X_side_1,diameter_object=SC_M5_Diameter_PT,height_object=Length_hole_screw);
     color("red")    
-    custom_cylinder(rotate_input=rotate_array_holes_X_side,translate_input=translate_array_holes_X_side_2,diameter_object=SC_M5_Diameter_PT,height_object=Length_hole_screw);
+    custom_cylinder(
+        rotate_input=rotate_array_holes_X_side,
+        translate_input=translate_array_holes_X_side_2,
+        diameter_object=SC_M5_Diameter_PT,
+        height_object=Length_hole_screw);
+        
     color("red")
     custom_cylinder(rotate_input=rotate_array_holes_X_side,translate_input=translate_array_holes_X_side_3,diameter_object=SC_M5_Diameter_PT,height_object=Length_hole_screw);
     
