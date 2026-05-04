@@ -28,18 +28,42 @@ TR_M10_Diameter_ES = 9.6;
 TR_M10_Diamater_IS = 10;
 TR_M10_Diamater_PT = 12;
 
+//--------------heat insert (HT)
+
+HT_Diameter_ES = 5;
+HT_Diameter_PT = 6;
+HT_height_ES = 4;
+HT_height_PT = 5;
+
 //--------------Screw (SC)
 //----M3
+
+screw_dictionary = [
+  ["example", "Diameter","Head_Diameter","Head_Height"],
+  ["m3", SC_M3_Diameter_ES,SC_M3_Head_Diameter_ES,SC_M3_Head_Height_ES],
+  ["m5", SC_M5_Diameter_ES,SC_M5_Head_Diameter_ES,SC_M5_Head_Height_ES],
+];
 
 module body_M3(height_input){
     cylinder(d=SC_M3_Diameter_PT,h=height_input,$fn=60);
     
     }
+    
+module screw(type_of_screw,height_input="undefinied"){
+    //retrieving from dictionary using function
+    chosen_spec = selector(screw_dictionary,type_of_screw);  
+    //determine nut diameter
+    screw_diameter = chosen_spec[0][1];
+    
+    //if screw height is undefined, take the value from the dict
+    object_height = (height_input == "undefined") ? chosen_spec[0][3] : height_input;
 
-module body_M5(height_input){
-    cylinder(d=SC_M5_Diameter_PT,h=height_input,$fn=60);
+    //create the cylinder
+    cylinder(d=screw_diameter,h=object_height,$fn=60);
     
     }
+ //example     
+ //screw("m5",10);   
     
 SC_M3_Diameter_ES = 2.96;
 SC_M3_Head_Diameter_ES = 5.90;
@@ -60,8 +84,34 @@ SC_M5_Head_Diameter_PT = 11;
 
 //--------------Nut Bolt (NB)
 
+nut_dictionary = [
+  ["example", "Diameter side to side","Nut_Height"],
+  ["m3", NB_M3_Diameter_S2S_ES,0],
+  ["m5", 0,0],
+];
+
+
 module nut_M3(height_input){
     cylinder(d=NB_M3_Diameter_C2C_PT,h=height_input,$fn=6);
+    
+    }
+
+module nut_M5(height_input){
+    cylinder(d=NB_M5_Diameter_C2C_PT,h=height_input,$fn=6);
+    
+    }
+    
+module nut(type_of_nut,height_input="undefinied"){
+    //retrieving from dictionary using function
+    chosen_spec = selector(nut_dictionary,type_of_nut);  
+    //determine nut diameter
+    nut_diameter = chosen_spec[0][1];
+    
+    //if nut height is undefined, take the value from the dict
+    object_height = (height_input == "undefined") ? chosen_spec[0][2] : height_input;
+
+    //create the cylinder
+    cylinder(d=nut_diameter ,h=object_height,$fn=6);
     
     }
 
@@ -75,6 +125,10 @@ NB_M3_Diameter_C2C_ES = 6.0;
 
 NB_M3_Diameter_S2S_PT = 6.30; //reducing as well
 NB_M3_Diameter_C2C_PT = 7.0; //8.0 was too much 
+
+NB_M5_Diameter_C2C_ES = 8.9;
+
+NB_M5_Diameter_C2C_PT = 10.5; //8.0 was too much 
 
 
 //--------------Zip ties (ZT)
@@ -218,3 +272,12 @@ module battery_charger(rotate_input,translate_input){
 
 
 //https://d138zd1ktt9iqe.cloudfront.net/media/seo_landing_files/length-width-height-01-1646654708.png
+
+
+//--------------Function    
+    
+function selector(dictionary,item) = [
+  for (spec = dictionary)
+  if (spec[0] == item)
+  spec
+];
