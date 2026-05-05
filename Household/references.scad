@@ -38,38 +38,56 @@ HT_height_PT = 5;
 //--------------Screw (SC)
 //----M3
 
+SC_M3_Thread_Diameter_ES = 2.76; 
+SC_M3_Thread_Height_ES = 7.52;
+SC_M3_Head_Diameter_ES = 5.2; 
+SC_M3_Head_Height_ES = 1.6;
 
-module body_M3(height_input){
-    cylinder(d=SC_M3_Diameter_PT,h=height_input,$fn=60);
-    
-    }
-    
-SC_M3_Diameter_ES = 2.96;
-SC_M3_Head_Diameter_ES = 5.90;
-SC_M3_Head_Height_ES = 2.32;
-//for a hole 
-SC_M3_Diameter_PT = 4; 
+SC_M3_Thread_Diameter_PT = 3.2; 
+SC_M3_Thread_Height_PT = 8;
+SC_M3_Head_Diameter_PT = 6; 
+SC_M3_Head_Height_PT = 2.2;
 
+SC_M3_Thread_Diameter_IS = 2.96; 
+SC_M3_Thread_Height_IS = SC_M3_Thread_Height_ES;
+SC_M3_Head_Diameter_IS = 5.4; 
+SC_M3_Head_Height_IS = SC_M3_Head_Height_ES;
 
 //----M5
 
-SC_M5_Diameter_ES = 4.86;
+SC_M5_Thread_Diameter_ES = 4.86;
+SC_M5_Thread_Height_ES = 8.1;
 SC_M5_Head_Diameter_ES = 9.24;
 SC_M5_Head_Height_ES = 3.0;
-//for a hole 
-SC_M5_Diameter_IS = 5;
-SC_M5_Diameter_PT = 5.2; //inconnu pour le moment
-SC_M5_Head_Diameter_PT = 11;
+
+SC_M5_Thread_Diameter_PT = 5.2; 
+SC_M5_Thread_Height_PT = 8.5;
+SC_M5_Head_Diameter_PT = 11; 
+SC_M5_Head_Height_PT = 3.2;
+
+SC_M5_Thread_Diameter_IS = 5; 
+SC_M5_Thread_Height_IS = SC_M5_Thread_Height_ES;
+SC_M5_Head_Diameter_IS = SC_M5_Head_Diameter_ES; //works with the exact size
+SC_M5_Head_Height_IS = SC_M5_Head_Height_ES;
 
 
 screw_dictionary = [
-  ["example", ["PT", "Diameter side to side","Head_Diameter","Head_Height"],["ES", "Diameter side to side","Head_Diameter","Head_Height"]],
-  ["m3", ["PT", 0.1,10],["ES", SC_M3_Diameter_ES,SC_M3_Head_Diameter_ES,SC_M3_Head_Height_ES],],
-  ["m5", ["PT", 0.1,10],["ES", SC_M5_Diameter_ES,SC_M5_Head_Diameter_ES,SC_M5_Head_Height_ES],],
-];
+    ["example", 
+        ["ES", "Thread Diameter","Thread Height","Head_Diameter","Head_Height"],
+        ["PT", "Thread Diameter","Thread Height","Head_Diameter","Head_Height"],
+        ["IS", "Thread Diameter","Thread Height","Head_Diameter","Head_Height"]],
+    ["m3", 
+        ["ES", SC_M3_Thread_Diameter_ES,SC_M3_Thread_Height_ES,SC_M3_Head_Diameter_ES,SC_M3_Head_Height_ES],
+        ["PT", SC_M3_Thread_Diameter_PT,SC_M3_Thread_Height_PT,SC_M3_Head_Diameter_PT,SC_M3_Head_Height_PT],
+        ["IS", SC_M3_Thread_Diameter_IS,SC_M3_Thread_Height_IS,SC_M3_Head_Diameter_IS,SC_M3_Head_Height_IS]],
 
+    ["m5", 
+        ["ES", SC_M5_Thread_Diameter_ES,SC_M5_Thread_Height_ES,SC_M5_Head_Diameter_ES,SC_M5_Head_Height_ES],
+        ["PT", SC_M5_Thread_Diameter_PT,SC_M5_Thread_Height_PT,SC_M5_Head_Diameter_PT,SC_M5_Head_Height_PT],
+        ["IS", SC_M5_Thread_Diameter_IS,SC_M5_Thread_Height_IS,SC_M5_Head_Diameter_IS,SC_M5_Head_Height_IS]],
+];
     
-module screw(type_of_screw,type_of_dimension="undefinied",height_input="undefinied"){
+module screw(type_of_screw,height_thread_input="undefined",height_head_input="undefined",type_of_dimension="undefined"){
     //if type of dimension is undefined, take a default value
     dimension_input = (type_of_dimension == "undefined") ? "PT" : type_of_dimension;
 
@@ -80,14 +98,38 @@ module screw(type_of_screw,type_of_dimension="undefinied",height_input="undefini
     screw_diameter = chosen_spec[0][1];
     
     //if screw height is undefined, take the value from the dict
-    object_height = (height_input == "undefined") ? chosen_spec[0][3] : height_input;
+    height_screw_thread = (height_thread_input == "undefined") ? chosen_spec[0][2] : height_thread_input;
+    
+    height_screw_head = (height_head_input == "undefined") ? chosen_spec[0][4] : height_head_input;
+    
+    official_height_screw_thread = chosen_spec[0][2];
+    
+    echo(height_screw_thread);
+    echo(height_thread_input);
+    
+    echo(height_screw_head);
+    echo(height_head_input);
+    
+    diameter_screw_head = chosen_spec[0][3];
 
     //create the cylinder
-    cylinder(d=screw_diameter,h=object_height,$fn=60);
+    //cylinder(d=screw_diameter,h=height_screw_thread,$fn=60);
+    
+    //threaded part
+    translate([0,0,official_height_screw_thread]){
+        // rotate so if the height increased, it will grow down and not up through the head
+        rotate([180,0,0]){
+            cylinder(h=height_screw_thread, d=screw_diameter , $fn=100);}}
+    //screw head
+    translate([0,0,official_height_screw_thread]){
+        cylinder(h=height_screw_head, d=diameter_screw_head , $fn=100);}
+
     
     }
+
  //example     
- //  screw("m3","ES",10);;   
+ //     screw("m5",height_thread_input=30,height_head_input=10,type_of_dimension="ES");
+  
 
 
 //--------------Nut Bolt (NB)
