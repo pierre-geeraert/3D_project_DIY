@@ -19,7 +19,7 @@ rotate([180,270,0]){
 difference(){    
 hull(){
     //adding width_material_to_block_screw and SC_M5_Head_Height_PT to the height, the piece was too big but it would work if it was cut to the top of the screw head 
-translate([0,0,-height_object+width_material_to_block_screw+SC_M5_Head_Height_PT]){    
+translate([-width_object/2,0,-height_object+width_material_to_block_screw+SC_M5_Head_Height_PT]){    
 block();
   
     }
@@ -30,7 +30,7 @@ rotate([0,103.88,0]){
         }
         }    
     }
-translate([0,0,-height_object-SC_M5_Thread_Height_PT+width_material_to_block_screw+width_material_to_block_screw+SC_M5_Head_Height_PT]){    
+translate([-width_object/2,0,-height_object-SC_M5_Thread_Height_PT+width_material_to_block_screw+width_material_to_block_screw+SC_M5_Head_Height_PT]){    
     
     translate([width_object/2,length_object/2,0]){
         screw("m5",type_of_dimension="PT",height_head_input=SC_M5_Head_Height_PT);
@@ -62,7 +62,7 @@ rotate([0,103.88,0]){
             color("pink"){screw("m5",height_thread_input=100,type_of_dimension="PT");}
         }
         }
-    for (i = [width_object/2:20]){
+    for (i = [width_object/2:25]){
         translate([i,length_object/2,0]){
         screw("m5",type_of_dimension="PT");
         }
