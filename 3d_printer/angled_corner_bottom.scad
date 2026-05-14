@@ -62,7 +62,8 @@ rotate([0,166.12,0]){
             color("pink"){screw("m5",height_thread_input=100,type_of_dimension="PT");}
         }
         }
-    for (i = [width_object/2:20]){
+        //making the cut full length so there is space for the allen key
+    for (i = [0:20]){
         translate([i,length_object/2,0]){
         screw("m5",type_of_dimension="PT");
         }
