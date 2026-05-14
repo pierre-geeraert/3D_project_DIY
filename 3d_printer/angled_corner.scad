@@ -15,7 +15,7 @@ module block(){
     
     
 difference(){    
-hull(){
+//hull(){
 translate([0,0,-height_object]){    
 block();
   
@@ -26,7 +26,7 @@ rotate([0,166.12,0]){
         block();
         }
         }    
-    }
+   // }
 translate([0,0,-height_object-SC_M5_Thread_Height_PT+width_material_to_block_screw]){    
     
     translate([width_object/2,length_object/2,0]){
