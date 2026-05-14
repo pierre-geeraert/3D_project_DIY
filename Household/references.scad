@@ -88,6 +88,7 @@ screw_dictionary = [
 ];
     
 module screw(type_of_screw,height_thread_input="undefined",height_head_input="undefined",type_of_dimension="undefined"){
+    color("green"){
     //if type of dimension is undefined, take a default value
     dimension_input = (type_of_dimension == "undefined") ? "PT" : type_of_dimension;
 
@@ -124,7 +125,7 @@ module screw(type_of_screw,height_thread_input="undefined",height_head_input="un
     translate([0,0,official_height_screw_thread]){
         cylinder(h=height_screw_head, d=diameter_screw_head , $fn=100);}
 
-    
+    }
     }
 
  //example     
