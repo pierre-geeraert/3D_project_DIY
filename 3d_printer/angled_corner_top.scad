@@ -13,6 +13,8 @@ module block(){
     //}
     }
     
+
+rotate([180,270,0]){
     
 difference(){    
 hull(){
@@ -22,7 +24,7 @@ block();
   
     }
     
-rotate([0,166.12,0]){
+rotate([0,103.88,0]){
     translate([-width_object,0,-height_object]){
         block();
         }
@@ -31,8 +33,7 @@ rotate([0,166.12,0]){
 translate([0,0,-height_object-SC_M5_Thread_Height_PT+width_material_to_block_screw+width_material_to_block_screw+SC_M5_Head_Height_PT]){    
     
     translate([width_object/2,length_object/2,0]){
-        //add 2 mm on top to take into account printing ringing
-        screw("m5",type_of_dimension="PT",height_head_input=SC_M5_Head_Height_PT+2);
+        screw("m5",type_of_dimension="PT",height_head_input=SC_M5_Head_Height_PT);
         }
     translate([width_object/2,length_object/2,(SC_M5_Thread_Height_PT)*2+SC_M5_Head_Height_PT]){
         rotate([180,0,0]){
@@ -42,8 +43,7 @@ translate([0,0,-height_object-SC_M5_Thread_Height_PT+width_material_to_block_scr
         
     for (i = [width_object/2:20]){
         translate([i,length_object/2,0]){
-        //add 2 mm on top to take into account printing ringing
-        screw("m5",type_of_dimension="PT",height_head_input=SC_M5_Head_Height_PT+2);
+        screw("m5",type_of_dimension="PT",height_head_input=SC_M5_Head_Height_PT);
         }
     }   
       
@@ -52,7 +52,7 @@ translate([0,0,-height_object-SC_M5_Thread_Height_PT+width_material_to_block_scr
 
 
 
-rotate([0,166.12,0]){
+rotate([0,103.88,0]){
     translate([-width_object,0,-height_object-SC_M5_Thread_Height_PT+width_material_to_block_screw]){
         translate([width_object/2,length_object/2,0]){
     screw("m5",type_of_dimension="PT");
@@ -71,3 +71,4 @@ rotate([0,166.12,0]){
         }
         }    
     }
+}
