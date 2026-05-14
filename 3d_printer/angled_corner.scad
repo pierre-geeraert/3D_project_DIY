@@ -15,8 +15,9 @@ module block(){
     
     
 difference(){    
-//hull(){
-translate([0,0,-height_object]){    
+hull(){
+    //adding width_material_to_block_screw and SC_M5_Head_Height_PT to the height, the piece was too big but it would work if it was cut to the top of the screw head 
+translate([0,0,-height_object+width_material_to_block_screw+SC_M5_Head_Height_PT]){    
 block();
   
     }
@@ -26,8 +27,8 @@ rotate([0,166.12,0]){
         block();
         }
         }    
-   // }
-translate([0,0,-height_object-SC_M5_Thread_Height_PT+width_material_to_block_screw]){    
+    }
+translate([0,0,-height_object-SC_M5_Thread_Height_PT+width_material_to_block_screw+width_material_to_block_screw+SC_M5_Head_Height_PT]){    
     
     translate([width_object/2,length_object/2,0]){
         screw("m5",type_of_dimension="PT");
